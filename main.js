@@ -46,7 +46,6 @@ for (i = 0; i < permanent_card_lst.length+selected_random_card_lst.length; i++) 
             div_copy = this.cloneNode(true)
 
             if (div_copy.innerText=="<空白>") {
-                console.log("空白")
                 div_copy.innerHTML = ""
             }
             document.getElementById("selected_card_container").appendChild(div_copy)
