@@ -1,6 +1,6 @@
 const permanent_card_lst = [
     "僕は", "君を", "僕と", "僕に", "僕の",
-    "君は", "僕を", "君と", "君に", "君の"
+    "君は", "僕を", "君と", "君に", "君の",
 ]
 const random_card_lst = [
     "一生一緒だよ", "抱きしめたい", "もう十分さ", "世界一", "求めるのさ", "のことで頭がいっぱいさ", "暮さないか？",
@@ -29,7 +29,7 @@ const random_card_lst = [
 
 const random_card = random_card_lst.sort(() => Math.random() - 0.5).slice(0, 8)
 
-const card_lst = permanent_card_lst.concat(random_card)
+const card_lst = permanent_card_lst.concat(random_card).concat(["<空白>", "<空白>"])
 
 for (i = 0; i < card_lst.length; i++) {
     div = document.createElement("div")
@@ -40,12 +40,21 @@ for (i = 0; i < card_lst.length; i++) {
         if (!this.classList.contains("selected")) {
             this.classList.add("selected")
             div_copy = this.cloneNode(true)
+
+            if (div_copy.innerText=="<空白>") {
+                console.log("空白")
+                div_copy.innerHTML = ""
+            }
             document.getElementById("selected_card_container").appendChild(div_copy)
-        }else{
+
+        } else {
             this.classList.remove("selected")
             already_selected_card = document.getElementById("selected_card_container").querySelectorAll(".card")
             for (j = 0; j < already_selected_card.length; j++) {
-                if (already_selected_card[j].innerHTML == this.innerHTML) {
+                if (already_selected_card[j].innerText == this.innerText) {
+                    already_selected_card[j].remove()
+                    break
+                } if (already_selected_card[j].innerText == "" && this.innerText == "<空白>") {
                     already_selected_card[j].remove()
                     break
                 }
